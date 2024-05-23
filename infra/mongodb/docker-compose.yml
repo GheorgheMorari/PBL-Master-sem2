@@ -9,7 +9,7 @@ services:
       - mongodb-data:/data/db
 #    ports:
 #      - "27017:27017"
-    restart: unless-stopped
+#    restart: unless-stopped
     networks:
       - mongo-net
       - public-net
@@ -52,7 +52,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    restart: unless-stopped
+#    restart: unless-stopped
     labels:
       #### Labels define the behavior and rules of the traefik proxy for this container ####
       - "traefik.enable=true" # <== Enable traefik to proxy this container
