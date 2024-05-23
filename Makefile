@@ -34,6 +34,13 @@ stop-traefik:
 	@ echo -e "$(BUILD_PRINT)Stopping the Traefik services $(END_BUILD_PRINT)"
 	@ docker compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} down
 
+start-postgres:
+	@ echo "Starting postgres..."
+	@ docker compose --env-file ./.env -f ./infra/postgres/docker-compose.yml -p postgres up -d
+
+stop-postgres:
+	@ echo "Stopping postgres..."
+	@ docker compose --env-file ./.env -f ./infra/postgres/docker-compose.yml -p postgres down
 
 start-minio:
 	@ echo "Starting minio..."
@@ -56,12 +63,12 @@ stop-processing-backend:
 start-common-infrastructure:
 	@ echo "Starting local infrastructure..."
 	@ make start-traefik
-	@ make start-mongodb
+	@ make start-postgres
 	@ make start-minio
 
 stop-common-infrastructure:
 	@ echo "Stopping local infrastructure..."
-	@ make stop-mongodb
+	@ make stop-postgres
 	@ make stop-minio
 	@ make stop-traefik
 
