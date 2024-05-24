@@ -555,4 +555,4 @@ cython_debug/
 /mobile-app-interface/.gradle/
 /infra/traefik/letsencrypt/
 
-*/resources/models/*/
+**/resources/models/*/
