@@ -1,11 +1,18 @@
+import os
+
+import dotenv
 import torch
 from PIL import Image
 from uform.torch_decoders import VLMProcessor, VLMForCausalLM
 
 from processing_backend.backend.image_captioning.resources.models import CAPTIONING_MODELS_DIR_PATH
 
+dotenv.load_dotenv()
+
 CAPTIONING_MODEL_NAME = "unum-cloud/uform-gen"
-CAPTIONING_DEVICE = torch.device("cuda")
+CAPTIONING_MODEL_USE_CUDA = os.environ.get("CAPTIONING_MODEL_USE_CUDA", "false").lower() == 'true'
+
+CAPTIONING_DEVICE = torch.device("cuda") if CAPTIONING_MODEL_USE_CUDA else torch.device("cpu")
 CAPTIONING_DEFAULT_PROMPT_LIST = ["[cap] Summarize the visual content of the image."]
 
 
