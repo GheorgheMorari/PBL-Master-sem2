@@ -1,0 +1,38 @@
+services:
+  api:
+    container_name: image-captioning-service-api
+    image: image-captioning-service-api
+    build:
+      context: ../../../
+      dockerfile: ./processing_backend/infra/image_captioning/Dockerfile
+    #    deploy:
+    #      resources:
+    #        reservations:
+    #          devices:
+    #            - driver: nvidia
+    #              count: 1
+    #              capabilities: [ gpu ]
+
+    env_file:
+      - ../../../.env
+    volumes:
+      - image-captioning-service:/opt/processing_backend
+    networks:
+      - public-net
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.image-captioning-service-api.rule=Host(`image-captioning-service.${DOMAIN}`)"
+      - "traefik.http.routers.image-captioning-service-api.entrypoints=web"
+    #      - "traefik.http.routers.image-captioning-service-api.middlewares=redirect@file"
+    #      - "traefik.http.routers.image-captioning-service-api-secured.rule=Host(`image-captioning-service.${DOMAIN}`)"
+    #      - "traefik.http.routers.image-captioning-service-api-secured.entrypoints=web-secured"
+    #      - "traefik.http.routers.image-captioning-service-api-secured.tls.certresolver=mytlschallenge"
+
+volumes:
+  image-captioning-service:
+    external: false
+
+networks:
+  public-net:
+    external: true

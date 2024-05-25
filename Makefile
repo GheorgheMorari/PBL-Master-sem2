@@ -76,3 +76,16 @@ restart-common-infrastructure:
 	@ echo "Restarting local infrastructure..."
 	@ make stop-common-infrastructure
 	@ make start-common-infrastructure
+
+
+build-captioning-service:
+	@ echo "Building captioning service..."
+	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_captioning/docker-compose.yml -p captioning-service build
+
+start-captioning-service:
+	@ echo "Starting captioning service..."
+	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_captioning/docker-compose.yml -p captioning-service up -d --force-recreate
+
+stop-captioning-service:
+	@ echo "Stopping captioning service..."
+	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_captioning/docker-compose.yml -p captioning-service down

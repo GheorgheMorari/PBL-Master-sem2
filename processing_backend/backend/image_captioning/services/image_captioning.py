@@ -10,3 +10,7 @@ def image_captioning(image: Image) -> str:
     :return: str.
     """
     return CaptioningModel.generate_caption(image)
+
+
+def init_captioning_model():
+    CaptioningModel.init_model()
