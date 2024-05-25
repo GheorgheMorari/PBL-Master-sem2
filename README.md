@@ -24,3 +24,15 @@ TODOs:
 - [ ] Implement Mobile app interface
 - [ ] Implement Common backend
 - [ ] Implement Processing backend
+
+
+## Common infrastructure
+- `make start-common-infrastructure` to start
+- `make stop-common-infrastructure` to stop
+
+### Processing backend
+- Depends on common infrastructure
+- `make build-processing-backend` to build
+- `make start-processing-backend` to start
+- `make stop-processing-backend` to stop
+- http://image-captioning-service.localtest.me/docs for captioning service
