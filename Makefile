@@ -89,3 +89,16 @@ start-captioning-service:
 stop-captioning-service:
 	@ echo "Stopping captioning service..."
 	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_captioning/docker-compose.yml -p captioning-service down
+
+
+build-processing-backend:
+	@ echo "Building processing backend..."
+	@ docker compose --env-file ./.env -f ./processing_backend/docker-compose.yml -p processing-backend build
+
+start-processing-backend:
+	@ echo "Starting processing backend..."
+	@ docker compose --env-file ./.env -f ./processing_backend/docker-compose.yml -p processing-backend up -d --force-recreate
+
+stop-processing-backend:
+	@ echo "Stopping processing backend..."
+	@ docker compose --env-file ./.env -f ./processing_backend/docker-compose.yml -p processing-backend down
