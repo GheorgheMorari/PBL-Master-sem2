@@ -90,15 +90,20 @@ stop-captioning-service:
 	@ echo "Stopping captioning service..."
 	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_captioning/docker-compose.yml -p captioning-service down
 
+build-compressor-service:
+	@ echo "Building compressor service..."
+	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_compressor/docker-compose.yml -p compressor-service build
 
-build-processing-backend:
-	@ echo "Building processing backend..."
-	@ docker compose --env-file ./.env -f ./processing_backend/docker-compose.yml -p processing-backend build
+start-compressor-service:
+	@ echo "Starting compressor service..."
+	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_compressor/docker-compose.yml -p compressor-service up -d --force-recreate
 
-start-processing-backend:
-	@ echo "Starting processing backend..."
-	@ docker compose --env-file ./.env -f ./processing_backend/docker-compose.yml -p processing-backend up -d --force-recreate
+stop-compressor-service:
+	@ echo "Stopping compressor service..."
+	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_compressor/docker-compose.yml -p compressor-service down
 
-stop-processing-backend:
-	@ echo "Stopping processing backend..."
-	@ docker compose --env-file ./.env -f ./processing_backend/docker-compose.yml -p processing-backend down
+build-processing-backend: build-captioning-service build-compressor-service
+
+start-processing-backend: start-captioning-service start-compressor-service
+
+stop-processing-backend: stop-captioning-service stop-compressor-service

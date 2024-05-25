@@ -36,3 +36,4 @@ TODOs:
 - `make start-processing-backend` to start
 - `make stop-processing-backend` to stop
 - http://image-captioning-service.localtest.me/docs for captioning service
+- http://image-compressor-service.localtest.me/docs for compressor service
