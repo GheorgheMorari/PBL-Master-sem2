@@ -15,8 +15,8 @@ services:
 
     env_file:
       - ../../../.env
-    volumes:
-      - image-captioning-service:/opt/processing_backend
+#    volumes:
+#      - image-captioning-service:/opt/processing_backend
     networks:
       - public-net
     restart: always

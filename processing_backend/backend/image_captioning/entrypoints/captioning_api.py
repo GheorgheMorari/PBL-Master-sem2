@@ -1,4 +1,5 @@
 import http
+import traceback
 
 from fastapi import FastAPI, HTTPException
 
@@ -13,6 +14,6 @@ app = FastAPI(on_startup=[init_captioning_model])
 @app.post(CAPTIONING_API_ENTRY_POINT_PREDICT_CAPTION_PATH, response_model=str)
 def route_predict_caption(b64_image_file: B64ImageFile) -> str:
     try:
-        return image_captioning(b64_image_file)
+        return image_captioning(b64_image_file.to_pil_image())
     except Exception as exception:
         raise HTTPException(status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR, detail=f"Exception:{exception}")
