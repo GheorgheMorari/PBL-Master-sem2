@@ -63,13 +63,13 @@ Mongodb, postgres
 
 1) http://image-processing-service.localtest.me/api/v1/ingest
 `{
-    "image_id" : "image_uuid1",
-    "user_id" : "user_uuid1"
+    "image_ids" : ["image_uuid1"],
+    "user_ids" : ["user_uuid1"]
 }`
 
 2) http://image-processing-service.localtest.me/api/v1/delete
 `{
-    "image_id" : "image_uuid1",
+    "image_ids" : ["image_uuid1"],
 }`
 
 3) http://image-processing-service.localtest.me/api/v1/query
