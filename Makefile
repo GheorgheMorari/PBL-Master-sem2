@@ -62,8 +62,8 @@ stop-processing-backend:
 
 start-common-infrastructure:
 	@ echo "Starting local infrastructure..."
-	@ make start-mongodb
 	@ make start-traefik
+	@ make start-mongodb
 	@ make start-postgres
 	@ make start-minio
 
