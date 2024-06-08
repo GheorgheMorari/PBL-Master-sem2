@@ -51,5 +51,29 @@ Mongodb, postgres
 - `make build-processing-backend` to build
 - `make start-processing-backend` to start
 - `make stop-processing-backend` to stop
-- http://image-captioning-service.localtest.me/docs for captioning service
-- http://image-compressor-service.localtest.me/docs for compressor service
+
+
+# Documentation
+
+
+## Processing backend
+- http://image-captioning-service.localtest.me/docs
+- http://image-compressor-service.localtest.me/docs
+- http://image-processing-service.localtest.me/docs
+
+1) http://image-processing-service.localtest.me/ingest
+`{
+    "image_id" : "image_uuid1",
+    "user_id" : "user_uuid1"
+}`
+
+2) http://image-processing-service.localtest.me/delete
+`{
+    "image_id" : "image_uuid1",
+}`
+
+3) http://image-processing-service.localtest.me/query
+`{
+    "user_id" : "user_uuid1",
+    "query_string": "cats bed tree"
+}`
