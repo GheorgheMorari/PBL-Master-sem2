@@ -8,9 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{E04A46C6-D67D-473D-91E3-4B9FBB1FCDD1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ObjectStorage", "ObjectStorage", "{0CB34749-51BB-4734-9F7C-109FA3A87063}"
-	ProjectSection(SolutionItems) = preProject
-		src\Modules\ObjectStorage\MasterBackEnd.ObjectStorage.Application\MasterBackEnd.ObjectStorage.Application.csproj = src\Modules\ObjectStorage\MasterBackEnd.ObjectStorage.Application\MasterBackEnd.ObjectStorage.Application.csproj
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{1B7BFEDF-01AF-4990-B3C7-FF52A1C48EC9}"
 EndProject
@@ -24,9 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterBackEnd.ObjectStorage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterBackEnd.Identity.Application", "src\Modules\Identity\MasterBackEnd.Identity.Application\MasterBackEnd.Identity.Application.csproj", "{AC6EECD0-535A-47FF-B31B-83EBCA94D19B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterBackEnd.Identity.Contracts", "src\Modules\Identity\MasterBackEnd.Identity.Contracts\MasterBackEnd.Identity.Contracts.csproj", "{98650D11-5E92-4D95-9C09-81096298ABCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterBackEnd.Identity.Contracts", "src\Modules\Identity\MasterBackEnd.Identity.Contracts\MasterBackEnd.Identity.Contracts.csproj", "{98650D11-5E92-4D95-9C09-81096298ABCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterBackEnd.Infrastructure", "src\MasterBackEnd.Infrastructure\MasterBackEnd.Infrastructure.csproj", "{6B2D7A49-CDBD-4BB3-9B15-5149CE1CD817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterBackEnd.Infrastructure", "src\MasterBackEnd.Infrastructure\MasterBackEnd.Infrastructure.csproj", "{6B2D7A49-CDBD-4BB3-9B15-5149CE1CD817}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MasterBackEnd.ObjectStorage.Application", "src\Modules\ObjectStorage\MasterBackEnd.ObjectStorage.Application\MasterBackEnd.ObjectStorage.Application.csproj", "{1633906C-BF84-483B-A344-F374A116AC07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterBackEnd.ObjectStorage.Contracts", "src\Modules\ObjectStorage\MasterBackEnd.ObjectStorage.Contracts\MasterBackEnd.ObjectStorage.Contracts.csproj", "{6B64764D-E076-406F-BDE2-689175EA71B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +67,14 @@ Global
 		{6B2D7A49-CDBD-4BB3-9B15-5149CE1CD817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B2D7A49-CDBD-4BB3-9B15-5149CE1CD817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B2D7A49-CDBD-4BB3-9B15-5149CE1CD817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1633906C-BF84-483B-A344-F374A116AC07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1633906C-BF84-483B-A344-F374A116AC07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1633906C-BF84-483B-A344-F374A116AC07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1633906C-BF84-483B-A344-F374A116AC07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B64764D-E076-406F-BDE2-689175EA71B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B64764D-E076-406F-BDE2-689175EA71B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B64764D-E076-406F-BDE2-689175EA71B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B64764D-E076-406F-BDE2-689175EA71B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +88,8 @@ Global
 		{8575DDFD-FDB9-4824-AC11-D8B402EE19F9} = {0CB34749-51BB-4734-9F7C-109FA3A87063}
 		{AC6EECD0-535A-47FF-B31B-83EBCA94D19B} = {1B7BFEDF-01AF-4990-B3C7-FF52A1C48EC9}
 		{98650D11-5E92-4D95-9C09-81096298ABCA} = {1B7BFEDF-01AF-4990-B3C7-FF52A1C48EC9}
+		{1633906C-BF84-483B-A344-F374A116AC07} = {0CB34749-51BB-4734-9F7C-109FA3A87063}
+		{6B64764D-E076-406F-BDE2-689175EA71B8} = {0CB34749-51BB-4734-9F7C-109FA3A87063}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7FA3379-4E0C-49B4-A860-77C3FAD764ED}

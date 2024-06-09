@@ -12,6 +12,7 @@ using NuGet.Protocol.Plugins;
 
 namespace MasterBackEnd.Api.Controllers
 {
+     [Authorize]
      public class IdentityController : ControllerBase
      {
           private readonly IMediator _mediator;
@@ -22,6 +23,7 @@ namespace MasterBackEnd.Api.Controllers
           }
 
           [HttpPost]
+          [AllowAnonymous]
           [ProducesResponseType(StatusCodes.Status200OK)]
           [ProducesResponseType(StatusCodes.Status400BadRequest)]
           [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -30,10 +32,10 @@ namespace MasterBackEnd.Api.Controllers
            => Ok(await _mediator.Send(new LoginQuery(request.UserName, request.Password)));
 
           [HttpPost]
+          [AllowAnonymous]
           [ProducesResponseType(StatusCodes.Status200OK)]
           [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
           [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-          [HttpPost]
           [Route("register")]
           public async Task<IActionResult> Register(RegisterRequest request) =>
               Ok(await _mediator.Send(new RegisterUserCommand(request.UserName, request.Password, request.Email,

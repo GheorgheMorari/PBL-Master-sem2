@@ -12,7 +12,7 @@ namespace MasterBackEnd.Identity.Application.Queries.Responses
           {
                Token = token;
           }
-          public string Token { get; }
 
+          public string Token { get; }
      }
 }
