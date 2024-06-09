@@ -4,17 +4,13 @@ ENV_FILE := .env
 
 -include .env
 
-all: setup-dotenv-from-example build-externals start-common-infrastructure start-processing-backend
+all: setup-dotenv-from-example start-common-infrastructure start-all-processing-backend
 
 setup-dotenv-from-example:
 	@ echo "Setting up .env file from .env.example..."
 	@ echo "DOMAIN=$${ENV_DOMAIN:-localtest.me}\n" > .env;
 	@ cat .env.example >> .env;
 	@ echo "Setting up .env file from .env.example... Done";
-
-build-externals:
-	@ echo -e "Creating the necessary volumes, networks and folders and setting the special rights ..."
-	@ docker network create public-net || true
 
 
 start-mongodb:
@@ -24,15 +20,6 @@ start-mongodb:
 stop-mongodb:
 	@ echo "Stopping mongodb..."
 	@ docker compose --env-file ./.env -f ./infra/mongodb/docker-compose.yml -p mongodb down
-
-
-start-traefik: build-externals
-	@ echo -e "$(BUILD_PRINT)Starting the Traefik services $(END_BUILD_PRINT)"
-	@ docker compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} up -d
-
-stop-traefik:
-	@ echo -e "$(BUILD_PRINT)Stopping the Traefik services $(END_BUILD_PRINT)"
-	@ docker compose -p common --file ./infra/traefik/docker-compose.yml --env-file ${ENV_FILE} down
 
 start-postgres:
 	@ echo "Starting postgres..."
@@ -52,7 +39,6 @@ stop-minio:
 
 start-common-infrastructure:
 	@ echo "Starting local infrastructure..."
-	@ make start-traefik
 	@ make start-mongodb
 	@ make start-postgres
 	@ make start-minio
@@ -62,7 +48,6 @@ stop-common-infrastructure:
 	@ make stop-mongodb
 	@ make stop-postgres
 	@ make stop-minio
-	@ make stop-traefik
 
 restart-common-infrastructure:
 	@ echo "Restarting local infrastructure..."

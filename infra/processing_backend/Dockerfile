@@ -10,5 +10,5 @@ RUN pip3 install --upgrade -r requirements.txt
 WORKDIR /opt
 COPY processing_backend processing_backend
 
-EXPOSE 8082
-CMD ["uvicorn", "processing_backend.backend.core.entrypoints.processing_backend:app","--host", "0.0.0.0", "--port", "8082"]
+EXPOSE 8090
+CMD ["uvicorn", "processing_backend.backend.core.entrypoints.processing_backend:app","--host", "0.0.0.0", "--port", "8090"]
