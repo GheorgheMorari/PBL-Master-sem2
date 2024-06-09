@@ -1,9 +1,10 @@
 ﻿
+using FluentResults;
 using MediatR;
 
 namespace MasterBackEnd.ObjectStorage.Application.Commands
 {
-     public class UploadFileCommand : IRequest<Unit>
+     public class UploadFileCommand : IRequest<Result>
      {
           public UploadFileCommand(string fileName, string fileType, byte[] data)
           {

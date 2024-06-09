@@ -1,4 +1,5 @@
-﻿using MasterBackEnd.ObjectStorage.Domain.Entities;
+﻿using FluentResults;
+using MasterBackEnd.ObjectStorage.Domain.Entities;
 using MasterBackEnd.ObjectStorage.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +9,7 @@ using System.Security.Claims;
 
 namespace MasterBackEnd.ObjectStorage.Application.Commands.UploadFile
 {
-     public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Unit>
+     public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Result>
      {
           private readonly IMinioClient _minioClient;
           private readonly ObjectStorageDbContext _context;
@@ -24,7 +25,7 @@ namespace MasterBackEnd.ObjectStorage.Application.Commands.UploadFile
                _httpContext = httpContext;
           }
 
-          public async Task<Unit> Handle(UploadFileCommand request, CancellationToken token)
+          public async Task<Result> Handle(UploadFileCommand request, CancellationToken token)
           {
                using (var stream = new MemoryStream(request.Data))
                {
@@ -57,9 +58,10 @@ namespace MasterBackEnd.ObjectStorage.Application.Commands.UploadFile
 
                          await _context.FileMetadata.AddAsync(metadata);
                          await _context.SaveChangesAsync();
+                         return Result.Ok();
                     }
 
-                    return Unit.Value;
+                    return Result.Fail("Failed to upload file");
                }
           }
      }
