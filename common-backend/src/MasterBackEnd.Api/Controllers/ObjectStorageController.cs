@@ -1,6 +1,7 @@
 ﻿using MasterBackEnd.ObjectStorage.Application.Commands;
 using MasterBackEnd.ObjectStorage.Application.Queries.DownloadFile;
 using MasterBackEnd.ObjectStorage.Application.Queries.ListPaginatedFiles;
+using MasterBackEnd.ObjectStorage.Application.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -59,21 +60,30 @@ namespace MasterBackEnd.Api.Controllers
           }
 
           [HttpGet]
-          public async Task<IActionResult> ListPaginatedFiles(ListPaginatedFilesQuery request,
-               CancellationToken cancellationToken)
+          public async Task<IActionResult> ListPaginatedFiles(int currentPage = 1, int pageSize = 10,
+               CancellationToken cancellationToken = default)
           {
-               var result = await _mediator.Send(request, cancellationToken);
+               var result = await _mediator.Send(new ListPaginatedFilesQuery(currentPage, pageSize), cancellationToken);
 
-               return Ok(result);
+               if (result.IsSuccess)
+               {
+                    return Ok(result.Value);
+               }
+
+               return BadRequest(result.Errors);
           }
 
           [HttpGet]
-          public async Task<IActionResult> DownloadFile(DownloadFileQuery request,
+          public async Task<IActionResult> DownloadFile(Guid id,
                CancellationToken cancellationToken = default)
           {
-               var result = await _mediator.Send(request, cancellationToken);
+               var result = await _mediator.Send(new DownloadFileQuery(id), cancellationToken);
+               if (result.IsSuccess)
+               {
+                    return File(result.Value.Data, result.Value.FileType, result.Value.FileName);
+               }
 
-               return Ok(result);
+               return BadRequest(result.Errors);
           }
      }
 }
