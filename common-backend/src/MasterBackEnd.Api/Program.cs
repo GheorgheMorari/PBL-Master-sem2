@@ -63,10 +63,15 @@ builder.Services.AddSingleton<IMinioClient>(sp =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-// TODO: add back the IsDev check
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+     app.UseDeveloperExceptionPage();
+     app.UseSwagger();
+     app.UseSwaggerUI(c =>
+     {
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "MasterBackEnd v1");
+     });
+}
 
 app.UseHttpsRedirection();
 

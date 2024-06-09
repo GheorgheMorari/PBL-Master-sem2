@@ -12,7 +12,6 @@ using NuGet.Protocol.Plugins;
 
 namespace MasterBackEnd.Api.Controllers
 {
-     [Authorize]
      public class IdentityController : ControllerBase
      {
           private readonly IMediator _mediator;
@@ -23,7 +22,6 @@ namespace MasterBackEnd.Api.Controllers
           }
 
           [HttpPost]
-          [AllowAnonymous]
           [Route("login")]
           [ProducesResponseType(StatusCodes.Status200OK)]
           [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,7 +30,6 @@ namespace MasterBackEnd.Api.Controllers
            => Ok(await _mediator.Send(new LoginQuery(request.UserName, request.Password)));
 
           [HttpPost]
-          [AllowAnonymous]
           [Route("register")]
           [ProducesResponseType(StatusCodes.Status200OK)]
           [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
@@ -40,16 +37,6 @@ namespace MasterBackEnd.Api.Controllers
           public async Task<IActionResult> Register([FromBody] RegisterRequest request) =>
               Ok(await _mediator.Send(new RegisterUserCommand(request.UserName, request.Password, request.Email,
                   request.PhoneNumber)));
-
-
-          [HttpGet]
-          [Authorize]
-          [Route("{userId}")]
-          [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-          [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-          [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-          public async Task<ActionResult<UserDto>> GetUserDetails(string userId, CancellationToken cancellationToken) =>
-              Ok(await _mediator.Send(new GetUserDetailsQuery(userId), cancellationToken));
      }
 }
 
