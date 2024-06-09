@@ -1,0 +1,10 @@
+services:
+  api:
+    container_name: image-processing-service-api
+    image: image-processing-service-api
+    build:
+      context: ../../
+      dockerfile: ./infra/processing_backend/Dockerfile
+    env_file:
+      - ../../.env
+    network_mode: "host"

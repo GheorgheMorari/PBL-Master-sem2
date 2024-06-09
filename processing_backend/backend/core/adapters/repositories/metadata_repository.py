@@ -25,22 +25,15 @@ class MongoDBMetadataRepository:
         self.collection.update_one({"_id": image_id}, {"$set": image_metadata.model_dump()})
 
     def find_image_ids_based_on_keywords(self, user_id: str, keywords: List[str]) -> List[str]:
-        return self._find_image_ids_based_on_array_key(user_id, "keywords", keywords)
-
-    def find_image_ids_based_on_location(self, user_id: str, location: List[str]) -> List[str]:
-        return self._find_image_ids_based_on_array_key(user_id, "location", location)
-
-    def find_image_ids_based_on_combined_location_keywords(self, user_id: str, combined_location_keywords: List[str]) -> \
-            List[str]:
-        return self._find_image_ids_based_on_array_key(user_id, "combined_location_keywords",
-                                                       combined_location_keywords)
+        cursor = self.collection.find({"user_id": user_id, "keywords": {"$all": keywords}}, {"_id": 1})
+        return [doc["_id"] for doc in cursor]
 
     def _find_image_ids_based_on_array_key(self, user_id: str, key: str, value: List[str]) -> List[str]:
         cursor = self.collection.find({"user_id": user_id, key: {"$all": value}}, {"_id": 1})
         return [doc["_id"] for doc in cursor]
 
-    def find_image_ids_that_should_get_compressed(self) -> List[str]:
-        cursor = self.collection.find({"$and": {"compressed": False, "should_be_compresed": True}}, {"_id": 1})
+    def find_image_ids_that_are_not_processed(self) -> List[str]:
+        cursor = self.collection.find({"processed": False}, {"_id": 1})
         return [doc["_id"] for doc in cursor]
 
     def find_image_ids_that_should_get_keywords(self) -> List[str]:
