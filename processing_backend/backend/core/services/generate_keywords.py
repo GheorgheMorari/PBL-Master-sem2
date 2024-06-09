@@ -15,4 +15,5 @@ stop_words = set(stopwords.words("english"))
 def generate_keywords(text: str) -> list[str]:
     word_tokens = word_tokenize(text.lower())
     filtered_tokens = [word for word in word_tokens if word not in stop_words]
-    return [lemmatizer.lemmatize(word) for word in filtered_tokens]
+    lemmatized_tokens = set([lemmatizer.lemmatize(word) for word in filtered_tokens])
+    return [word for word in lemmatized_tokens if word.isalnum()]
