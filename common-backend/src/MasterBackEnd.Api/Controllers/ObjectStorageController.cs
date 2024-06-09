@@ -37,7 +37,12 @@ namespace MasterBackEnd.Api.Controllers
                var command = new UploadFileCommand(file.FileName, file.ContentType, fileData);
                var result = await _mediator.Send(command, cancellationToken);
 
-               return Ok(result);
+               if (result.IsSuccess)
+               {
+                    return Ok();
+               }
+
+               return BadRequest(result.Errors);
           }
 
           [HttpDelete]
@@ -45,7 +50,12 @@ namespace MasterBackEnd.Api.Controllers
           {
                var result = await _mediator.Send(new DeleteFileCommand(id), cancellationToken);
 
-               return Ok(result);
+               if (result.IsSuccess)
+               {
+                    return Ok();
+               }
+
+               return BadRequest(result.Errors);
           }
 
           [HttpGet]

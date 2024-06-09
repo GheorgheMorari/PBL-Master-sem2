@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MasterBackEnd.ObjectStorage.Application.Commands
 {
-     public class DeleteFileCommand : IRequest<Unit>
+     public class DeleteFileCommand : IRequest<Result>
      {
           public DeleteFileCommand(Guid id)
           {
