@@ -39,8 +39,8 @@ class MongoDBMetadataRepository:
         cursor = self.collection.find({"user_id": user_id, key: {"$all": value}}, {"_id": 1})
         return [doc["_id"] for doc in cursor]
 
-    def find_image_ids_that_should_get_compressed(self) -> List[str]:
-        cursor = self.collection.find({"$and": {"compressed": False, "should_be_compresed": True}}, {"_id": 1})
+    def find_image_ids_that_are_not_processed(self) -> List[str]:
+        cursor = self.collection.find({"processed": False}, {"_id": 1})
         return [doc["_id"] for doc in cursor]
 
     def find_image_ids_that_should_get_keywords(self) -> List[str]:
