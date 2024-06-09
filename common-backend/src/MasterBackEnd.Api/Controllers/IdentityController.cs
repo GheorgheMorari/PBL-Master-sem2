@@ -24,30 +24,30 @@ namespace MasterBackEnd.Api.Controllers
 
           [HttpPost]
           [AllowAnonymous]
+          [Route("login")]
           [ProducesResponseType(StatusCodes.Status200OK)]
           [ProducesResponseType(StatusCodes.Status400BadRequest)]
           [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-          [Route("login")]
-          public async Task<ActionResult> Login(LoginRequest request)
+          public async Task<ActionResult> Login([FromBody] LoginRequest request)
            => Ok(await _mediator.Send(new LoginQuery(request.UserName, request.Password)));
 
           [HttpPost]
           [AllowAnonymous]
+          [Route("register")]
           [ProducesResponseType(StatusCodes.Status200OK)]
           [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
           [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-          [Route("register")]
-          public async Task<IActionResult> Register(RegisterRequest request) =>
+          public async Task<IActionResult> Register([FromBody] RegisterRequest request) =>
               Ok(await _mediator.Send(new RegisterUserCommand(request.UserName, request.Password, request.Email,
                   request.PhoneNumber)));
 
 
+          [HttpGet]
+          [Authorize]
+          [Route("{userId}")]
           [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
           [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
           [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-          [Authorize]
-          [HttpGet]
-          [Route("{userId}")]
           public async Task<ActionResult<UserDto>> GetUserDetails(string userId, CancellationToken cancellationToken) =>
               Ok(await _mediator.Send(new GetUserDetailsQuery(userId), cancellationToken));
      }
