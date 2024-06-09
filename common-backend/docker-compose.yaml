@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  # API
+  master_api:
+    container_name: master_api
+    image: kamiyoflow/master
+    ports:
+      - '8081:8080'
+    depends_on:
+      - postgres_image
+    networks:
+      - backend-network
+
+  # Postgres instance
+  postgres_image:
+    container_name: master_api_postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
