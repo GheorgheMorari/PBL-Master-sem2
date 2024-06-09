@@ -15,7 +15,7 @@ setup-dotenv-from-example:
 
 start-mongodb:
 	@ echo "Starting mongodb..."
-	@ docker compose --env-file ./.env -f ./infra/mongodb/docker-compose.yml -p mongodb up -d --force-recreate --renew-anon-volumes
+	@ docker compose --env-file ./.env -f ./infra/mongodb/docker-compose.yml -p mongodb up -d --build --force-recreate --renew-anon-volumes
 
 stop-mongodb:
 	@ echo "Stopping mongodb..."
