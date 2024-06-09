@@ -14,11 +14,11 @@ class CompressorAdapter:
         self.captioning_service_api_url = urljoin(service_api_url, COMPRESSOR_API_ENTRY_POINT_COMPRESS_IMAGE_PATH)
         self.timeout = (connection_timeout, read_timeout)
 
-    def compress_image(self, image_file: B64ImageFile) -> str:
+    def compress_image(self, image_file: B64ImageFile) -> B64ImageFile:
         response = requests.post(self.captioning_service_api_url, data=image_file.model_dump_json(),
                                  timeout=self.timeout)
 
         if response.status_code != 200:
             raise Exception(response.text)
 
-        return response.text
+        return B64ImageFile(**response.json())
