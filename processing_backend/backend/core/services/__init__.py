@@ -12,14 +12,14 @@ from processing_backend.backend.core.adapters.repositories.metadata_repository i
 dotenv.load_dotenv()
 
 
-def default_metadata_repository_retriever():
+def default_metadata_repository_retriever() -> MongoDBMetadataRepository:
     mongo_client = MongoClient(os.getenv("METADATA_REPOSITORY_MONGO_DB_AUTH_URL"))
     database_name = os.getenv("METADATA_REPOSITORY_MONGO_DB_DATABASE_NAME")
     collection_name = os.getenv("METADATA_REPOSITORY_MONGO_DB_COLLECTION_NAME")
     return MongoDBMetadataRepository(mongo_client, database_name, collection_name)
 
 
-def default_content_repository_retriever():
+def default_content_repository_retriever() -> MinioContentRepository:
     s3_endpoint = os.getenv("CONTENT_REPOSITORY_S3_ENDPOINT")
     s3_access_key = os.getenv("CONTENT_REPOSITORY_S3_ACCESS_KEY")
     s3_secret_key = os.getenv("CONTENT_REPOSITORY_S3_SECRET_KEY")
@@ -31,13 +31,13 @@ def default_content_repository_retriever():
     return MinioContentRepository(minio_client, bucket_name)
 
 
-def get_default_captioning_adapter_retriever():
+def get_default_captioning_adapter_retriever() -> CaptioningAdapter:
     captioning_service_api_url = os.getenv("CAPTIONING_API_URL")
 
     return CaptioningAdapter(captioning_service_api_url)
 
 
-def get_default_compressor_adapter_retriever():
+def get_default_compressor_adapter_retriever() -> CompressorAdapter:
     compressor_service_api_url = os.getenv("COMPRESSOR_API_URL")
 
     return CompressorAdapter(compressor_service_api_url)

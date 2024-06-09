@@ -25,4 +25,4 @@ def query_images_with_query_input(query_input: QueryInput):
     metadata_repository: MongoDBMetadataRepository = AdapterRegistry.get_adapter(MongoDBMetadataRepository,
                                                                                  default_metadata_repository_retriever)
     keywords = generate_keywords(query_input.query_string)
-    return metadata_repository.find_image_ids_based_on_combined_location_keywords(query_input.user_id, keywords)
+    return metadata_repository.find_image_ids_based_on_keywords(query_input.user_id, keywords)

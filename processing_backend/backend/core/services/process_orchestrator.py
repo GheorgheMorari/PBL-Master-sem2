@@ -31,22 +31,23 @@ def process_orchestrator():
     while not ProcessingOrchestrator.stop_flag:
         image_ids = metadata_repository.find_image_ids_that_are_not_processed()
 
-        for image_id in tqdm(image_ids):
-            image_metadata = metadata_repository.read(image_id)
-            image_content = content_repository.read(image_id)
+        if len(image_ids) != 0:
+            for image_id in tqdm(image_ids):
+                image_metadata = metadata_repository.read(image_id)
+                image_content = content_repository.read(image_id)
 
-            # Captioning
-            caption = captioning_adapter.predict_caption(image_content)
-            keywords = generate_keywords(caption)
-            image_metadata.keywords = keywords
+                # Captioning
+                caption = captioning_adapter.predict_caption(image_content)
+                keywords = generate_keywords(caption)
+                image_metadata.keywords = keywords
 
-            # Compressor
-            compressed_image = compressor_adapter.compress_image(image_content)
-            image_metadata.compressed = True
+                # Compressor
+                compressed_image = compressor_adapter.compress_image(image_content)
+                image_metadata.compressed = True
 
-            image_metadata.processed = True
+                image_metadata.processed = True
 
-            metadata_repository.update(image_id, image_metadata)
-            content_repository.update(image_id, compressed_image)
+                metadata_repository.update(image_id, image_metadata)
+                content_repository.update(image_id, compressed_image)
 
         time.sleep(PROCESSING_ORCHESTRATOR_SLEEP_TIME)
