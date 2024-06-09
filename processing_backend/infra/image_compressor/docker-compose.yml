@@ -7,19 +7,19 @@ services:
       dockerfile: ./processing_backend/infra/image_compressor/Dockerfile
     env_file:
       - ../../../.env
-    volumes:
-      - image-compressor-service:/opt/processing_backend
+#    volumes:
+#      - image-compressor-service:/opt/processing_backend
     networks:
       - public-net
-    restart: always
+#    restart: always
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.image-compressor-service-api.rule=Host(`image-compressor-service.${DOMAIN}`)"
       - "traefik.http.routers.image-compressor-service-api.entrypoints=web"
 
-volumes:
-  image-compressor-service:
-    external: false
+#volumes:
+#  image-compressor-service:
+#    external: false
 
 networks:
   public-net:

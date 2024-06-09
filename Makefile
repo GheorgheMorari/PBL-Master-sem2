@@ -50,16 +50,6 @@ stop-minio:
 	@ echo "Stopping minio..."
 	@ docker compose --env-file ./.env -f ./infra/minio/docker-compose.yml -p minio down
 
-
-start-processing-backend:
-	@ echo "Starting processing backend..."
-	@ docker compose --env-file ./.env -f ./infra/processing-backend/docker-compose.yml -p processing-backend up -d --force-recreate
-
-stop-processing-backend:
-	@ echo "Stopping processing backend..."
-	@ docker compose --env-file ./.env -f ./infra/processing-backend/docker-compose.yml -p processing-backend down
-
-
 start-common-infrastructure:
 	@ echo "Starting local infrastructure..."
 	@ make start-traefik
@@ -104,8 +94,20 @@ stop-compressor-service:
 	@ echo "Stopping compressor service..."
 	@ docker compose --env-file ./.env -f ./processing_backend/infra/image_compressor/docker-compose.yml -p compressor-service down
 
-build-processing-backend: build-captioning-service build-compressor-service
+build-processing-backend:
+	@ echo "Building processing backend..."
+	@ docker compose --env-file ./.env -f ./infra/processing_backend/docker-compose.yml -p processing-backend build
 
-start-processing-backend: start-captioning-service start-compressor-service
+start-processing-backend:
+	@ echo "Starting processing backend..."
+	@ docker compose --env-file ./.env -f ./infra/processing_backend/docker-compose.yml -p processing-backend up -d --force-recreate
 
-stop-processing-backend: stop-captioning-service stop-compressor-service
+stop-processing-backend:
+	@ echo "Stopping processing backend..."
+	@ docker compose --env-file ./.env -f ./infra/processing_backend/docker-compose.yml -p processing-backend down
+
+build-all-processing-backend: build-captioning-service build-compressor-service build-processing-backend
+
+start-all-processing-backend: start-captioning-service start-compressor-service start-processing-backend
+
+stop-all-processing-backend: stop-captioning-service stop-compressor-service stop-processing-backend

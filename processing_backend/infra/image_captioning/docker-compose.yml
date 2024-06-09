@@ -19,7 +19,7 @@ services:
 #      - image-captioning-service:/opt/processing_backend
     networks:
       - public-net
-    restart: always
+#    restart: always
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.image-captioning-service-api.rule=Host(`image-captioning-service.${DOMAIN}`)"
@@ -29,9 +29,9 @@ services:
     #      - "traefik.http.routers.image-captioning-service-api-secured.entrypoints=web-secured"
     #      - "traefik.http.routers.image-captioning-service-api-secured.tls.certresolver=mytlschallenge"
 
-volumes:
-  image-captioning-service:
-    external: false
+#volumes:
+#  image-captioning-service:
+#    external: false
 
 networks:
   public-net:
