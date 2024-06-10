@@ -10,7 +10,7 @@ stop: stop-all-processing-backend stop-common-infrastructure
 
 setup-dotenv-from-example:
 	@ echo "Setting up .env file from .env.example..."
-	@ echo "DOMAIN=$${ENV_DOMAIN:-localtest.me}\n" > .env;
+	@ echo "DOMAIN=$${ENV_DOMAIN:-host.docker.internal}\n" > .env;
 	@ cat .env.example >> .env;
 	@ echo "Setting up .env file from .env.example... Done";
 
