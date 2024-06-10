@@ -9,7 +9,8 @@ services:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
-
+    networks:
+      - public-net
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -20,8 +21,14 @@ services:
       - pgadmin:/var/lib/pgadmin
     ports:
       - "5050:80"
-
+    networks:
+      - public-net
 
 volumes:
   postgres:
   pgadmin:
+
+
+networks:
+  public-net:
+    external: true

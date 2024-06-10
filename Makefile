@@ -4,7 +4,9 @@ ENV_FILE := .env
 
 -include .env
 
-all: setup-dotenv-from-example start-common-infrastructure start-all-processing-backend
+all: setup-dotenv-from-example build-externals start-common-infrastructure start-all-processing-backend
+
+stop: stop-all-processing-backend stop-common-infrastructure
 
 setup-dotenv-from-example:
 	@ echo "Setting up .env file from .env.example..."
@@ -12,6 +14,9 @@ setup-dotenv-from-example:
 	@ cat .env.example >> .env;
 	@ echo "Setting up .env file from .env.example... Done";
 
+build-externals:
+	@ echo -e "Creating the necessary volumes, networks and folders and setting the special rights ..."
+	@ docker network create public-net || true
 
 start-mongodb:
 	@ echo "Starting mongodb..."

@@ -17,3 +17,9 @@ services:
       - ../../../.env
     ports:
       - "8091:8082"
+    networks:
+      - public-net
+
+networks:
+  public-net:
+    external: true

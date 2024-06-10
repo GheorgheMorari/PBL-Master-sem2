@@ -11,7 +11,12 @@ services:
     command: server --console-address ":9001" /data
     volumes:
       - s3-disk:/data
-
+    networks:
+      - public-net
 volumes:
   s3-disk:
     name: minio-disk
+
+networks:
+  public-net:
+    external: true
