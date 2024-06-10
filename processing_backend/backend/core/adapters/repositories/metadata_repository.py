@@ -13,7 +13,7 @@ class MongoDBMetadataRepository:
         self.collection = self.mongo_client[self.database_name][self.collection_name]
 
     def create(self, image_id: str, image_metadata: ImageMetadata) -> None:
-        self.collection.insert_one({"_id": image_id, **image_metadata.model_dump()})
+        self.collection.update_one({"_id": image_id}, {**image_metadata.model_dump()}, upsert=True)
 
     def read(self, image_id: str) -> ImageMetadata:
         return ImageMetadata(**self.collection.find_one({"_id": image_id}))
