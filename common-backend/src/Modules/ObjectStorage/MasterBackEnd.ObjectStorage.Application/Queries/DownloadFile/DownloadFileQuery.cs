@@ -1,9 +1,10 @@
-﻿using MasterBackEnd.ObjectStorage.Application.Responses;
+﻿using FluentResults;
+using MasterBackEnd.ObjectStorage.Application.Responses;
 using MediatR;
 
 namespace MasterBackEnd.ObjectStorage.Application.Queries.DownloadFile
 {
-     public class DownloadFileQuery : IRequest<FileResponse>
+     public class DownloadFileQuery : IRequest<Result<FileResponse>>
      {
           public DownloadFileQuery(Guid id)
           {
